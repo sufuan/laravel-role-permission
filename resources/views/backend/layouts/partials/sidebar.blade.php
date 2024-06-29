@@ -18,6 +18,9 @@
                   Messages
                   <span class="badge bg-success-soft text-success ms-auto">2 New!</span>
               </a>
+
+
+
               <!-- Sidenav Menu Heading (Core)-->
               <div class="sidenav-menu-heading">Roles </div>
               <!-- Sidenav Accordion (Dashboard)-->
@@ -34,7 +37,30 @@
                       <a class="nav-link" href="{{route('admin.roles.create')}}">
                           Create Roles
                       </a>
-                      <a class="nav-link" href="dashboard-3.html">Affiliate</a>
+
+                  </nav>
+              </div>
+
+
+
+
+              <!-- Sidenav Menu Heading (Core)-->
+              <div class="sidenav-menu-heading">User </div>
+              <!-- Sidenav Accordion (Dashboard)-->
+              <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">
+                  <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                  User Management
+                  <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="collapseDashboards" data-bs-parent="#accordionSidenav">
+                  <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                      <a class="nav-link" href="{{route('admin.users.index')}}">
+                          All User
+                      </a>
+                      <a class="nav-link" href="{{route('admin.users.create')}}">
+                          Create User
+                      </a>
+
                   </nav>
               </div>
 
