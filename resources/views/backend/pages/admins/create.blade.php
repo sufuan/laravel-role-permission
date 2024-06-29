@@ -1,4 +1,3 @@
-
 @extends('backend.layouts.master')
 
 @section('title')
@@ -19,23 +18,7 @@ Admin Create - Admin Panel
 @section('admin-content')
 
 <!-- page title area start -->
-<div class="page-title-area">
-    <div class="row align-items-center">
-        <div class="col-sm-6">
-            <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Admin Create</h4>
-                <ul class="breadcrumbs pull-left">
-                    <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.admins.index') }}">All Admins</a></li>
-                    <li><span>Create Admin</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-6 clearfix">
-            @include('backend.layouts.partials.logout')
-        </div>
-    </div>
-</div>
+
 <!-- page title area end -->
 
 <div class="main-content-inner">
@@ -46,7 +29,7 @@ Admin Create - Admin Panel
                 <div class="card-body">
                     <h4 class="header-title">Create New Role</h4>
                     @include('backend.layouts.partials.messages')
-                    
+
                     <form action="{{ route('admin.admins.store') }}" method="POST">
                         @csrf
                         <div class="form-row">
@@ -76,7 +59,7 @@ Admin Create - Admin Panel
                                 <label for="password">Assign Roles</label>
                                 <select name="roles[]" id="roles" class="form-control select2" multiple>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -85,14 +68,14 @@ Admin Create - Admin Panel
                                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
                             </div>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Admin</button>
                     </form>
                 </div>
             </div>
         </div>
         <!-- data table end -->
-        
+
     </div>
 </div>
 @endsection

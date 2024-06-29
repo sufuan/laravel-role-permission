@@ -1,42 +1,48 @@
-<!doctype html>
-<html class="no-js" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'Laravel Role Admin')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @include('backend.layouts.partials.styles')
-    @yield('styles')
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Admin Dashboard')</title>
+    <!-- Link to CSS file -->
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <!-- Link to favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+    <!-- Font Awesome -->
+    <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
+    <!-- Feather Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
+    <!-- Simple DataTables -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.css">
 </head>
 
-<body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-    <div class="page-container">
+<body class="nav-fixed">
+    @include('backend.layouts.partials.header')
 
-       @include('backend.layouts.partials.sidebar')
-
-        <!-- main content area start -->
-        <div class="main-content">
-            @include('backend.layouts.partials.header')
-            @yield('admin-content')
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            @include('backend.layouts.partials.sidebar')
         </div>
-        <!-- main content area end -->
-        @include('backend.layouts.partials.footer')
+        <div id="layoutSidenav_content">
+            @yield('admin-content')
+            @include('backend.layouts.partials.footer')
+        </div>
     </div>
-    <!-- page container area end -->
 
-    @include('backend.layouts.partials.offsets')
-    @include('backend.layouts.partials.scripts')
-    @yield('scripts')
+    <!-- jQuery (if needed) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- Local Scripts -->
+    <script src="{{ asset('js/scripts.js') }}"></script>
+    <!-- Simple DataTables -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+
+    <!-- Feather Icons Initialization -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

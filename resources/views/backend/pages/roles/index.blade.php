@@ -1,125 +1,87 @@
-
 @extends('backend.layouts.master')
-
-@section('title')
-Role Page - Admin Panel
-@endsection
-
-@section('styles')
-    <!-- Start datatable css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
-@endsection
-
 
 @section('admin-content')
 
-<!-- page title area start -->
-<div class="page-title-area">
-    <div class="row align-items-center">
-        <div class="col-sm-6">
-            <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Roles</h4>
-                <ul class="breadcrumbs pull-left">
-                    <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Roles</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-6 clearfix">
-            @include('backend.layouts.partials.logout')
-        </div>
-    </div>
-</div>
-<!-- page title area end -->
 
-<div class="main-content-inner">
-    <div class="row">
-        <!-- data table start -->
-        <div class="col-12 mt-5">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="header-title float-left">Roles List</h4>
-                    <p class="float-right mb-2">
-                        @if (Auth::guard('admin')->user()->can('role.create'))
-                            <a class="btn btn-primary text-white" href="{{ route('admin.roles.create') }}">Create New Role</a>
-                        @endif
-                    </p>
-                    <div class="clearfix"></div>
-                    <div class="data-tables">
-                        @include('backend.layouts.partials.messages')
-                        <table id="dataTable" class="text-center">
-                            <thead class="bg-light text-capitalize">
-                                <tr>
-                                    <th width="5%">Sl</th>
-                                    <th width="10%">Name</th>
-                                    <th width="60%">Permissions</th>
-                                    <th width="15%">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               @foreach ($roles as $role)
-                               <tr>
-                                    <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $role->name }}</td>
-                                    <td>
-                                        @foreach ($role->permissions as $perm)
-                                            <span class="badge badge-info mr-1">
-                                                {{ $perm->name }}
-                                            </span>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @if (Auth::guard('admin')->user()->can('admin.edit'))
-                                            <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
-                                        @endif
-
-                                        @if (Auth::guard('admin')->user()->can('admin.edit'))
-                                            <a class="btn btn-danger text-white" href="{{ route('admin.roles.destroy', $role->id) }}"
-                                            onclick="event.preventDefault(); document.getElementById('delete-form-{{ $role->id }}').submit();">
-                                                Delete
-                                            </a>
-
-                                            <form id="delete-form-{{ $role->id }}" action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" style="display: none;">
-                                                @method('DELETE')
-                                                @csrf
-                                            </form>
-                                        @endif
-                                    </td>
-                                </tr>
-                               @endforeach
-                            </tbody>
-                        </table>
+<main>
+    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+        <div class="container-xl px-4">
+            <div class="page-header-content pt-4">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-auto mt-4">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="filter"></i></div>
+                            Tables
+                        </h1>
+                        <div class="page-header-subtitle">An extension of the Simple DataTables library, customized for SB Admin Pro</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- data table end -->
-        
+    </header>
+    <!-- Main page content-->
+    <div class="container-xl px-4 mt-n10 pb-10">
+        <div class="card mb-4">
+            <div class="card-header">Extended DataTables</div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Sl</th>
+                            <th>Name</th>
+                            <th>Position</th>
+
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        @foreach ($roles as $role)
+                        <tr>
+                            <td>{{ $loop->index+1 }}</td>
+                            <td>{{ $role->name }}</td>
+                            <td>
+                                @foreach ($role->permissions as $perm)
+                                <span class="badge badge-info mr-1">
+                                    {{ $perm->name }}
+                                </span>
+                                @endforeach
+                            </td>
+                            <td>
+                                <!-- <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i class="fa-solid fa-pencil-alt"></i></button> -->
+                                <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
+                                <button class="btn btn-datatable btn-icon btn-transparent-dark"><i class="fa-regular fa-trash-can"></i></button>
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card card-icon mb-4">
+            <div class="row g-0">
+                <div class="col-auto card-icon-aside bg-primary"><i class="me-1 text-white-50" data-feather="alert-triangle"></i></div>
+                <div class="col">
+                    <div class="card-body py-5">
+                        <h5 class="card-title">Third-Party Documentation Available</h5>
+                        <p class="card-text">Simple DataTables is a third party plugin that is used to generate the demo table above. For more information about how to use Simple DataTables with your project, please visit the official documentation.</p>
+                        <a class="btn btn-primary btn-sm" href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">
+                            <i class="me-1" data-feather="external-link"></i>
+                            Visit Simple DataTables Docs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-@endsection
+</main>
 
-
-@section('scripts')
-     <!-- Start datatable js -->
-     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
-     
-     <script>
-         /*================================
-        datatable active
-        ==================================*/
-        if ($('#dataTable').length) {
-            $('#dataTable').DataTable({
-                responsive: true
-            });
-        }
-
-     </script>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="{{ asset('js/datatables/datatables-simple-demo.js') }}"></script>
 @endsection
