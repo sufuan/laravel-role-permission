@@ -14,70 +14,107 @@ Admin Create - Admin Panel
 </style>
 @endsection
 
-
 @section('admin-content')
 
-<!-- page title area start -->
-
-<!-- page title area end -->
-
-<div class="main-content-inner">
-    <div class="row">
-        <!-- data table start -->
-        <div class="col-12 mt-5">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="header-title">Create New Role</h4>
-                    @include('backend.layouts.partials.messages')
-
-                    <form action="{{ route('admin.admins.store') }}" method="POST">
-                        @csrf
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="name">Admin Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-xl px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon">
+                                <i data-feather="user"></i>
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="email">Admin Email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email">
-                            </div>
+                            Create New Admin
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" href="{{ route('admin.admins.index') }}">
+                            <i class="me-1" data-feather="arrow-left"></i>
+                            Back to Admins List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-xl px-4 mt-4">
+        <div class="row">
+            <div class="col-xl-4">
+                <!-- Profile picture card-->
+                <div class="card mb-4 mb-xl-0">
+                    <div class="card-header">Profile Picture</div>
+                    <div class="card-body text-center">
+                        <!-- Profile picture image-->
+                        <img class="img-account-profile rounded-circle mb-2" src="{{ asset('assets/img/demo/user-placeholder.svg') }}" alt="" />
+
+                        <!-- Profile picture help block-->
+                        <div class="small font-italic text-muted mb-4">
+                            JPG or PNG no larger than 5 MB
                         </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                        <!-- Profile picture upload button-->
+                        <button class="btn btn-primary" type="button">
+                            Upload new image
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="card mb-4">
+                    <div class="card-header">Admin Details</div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.admins.store') }}" method="POST">
+                            @csrf
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="name">Admin Name</label>
+                                    <input class="form-control" id="name" type="text" name="name" placeholder="Enter Name" required />
+                                </div>
+                                <!-- Form Group (username)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="username">Admin Username</label>
+                                    <input class="form-control" id="username" type="text" name="username" placeholder="Enter Username" required />
+                                </div>
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="password_confirmation">Confirm Password</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password">
+                            <!-- Form Group (email address)-->
+                            <div class="mb-3">
+                                <label class="small mb-1" for="email">Admin Email</label>
+                                <input class="form-control" id="email" type="email" name="email" placeholder="Enter Email" required />
                             </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-6">
-                                <label for="password">Assign Roles</label>
+                            <!-- Form Row (password and confirm password)-->
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label for="password" class="small mb-1">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="password_confirmation" class="small mb-1">Confirm Password</label>
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password" required>
+                                </div>
+                            </div>
+                            <!-- Form Group (roles)-->
+                            <div class="form-group">
+                                <label for="roles" class="small mb-1">Assign Roles</label>
                                 <select name="roles[]" id="roles" class="form-control select2" multiple>
                                     @foreach ($roles as $role)
                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6">
-                                <label for="username">Admin Username</label>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Admin</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Admin</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- data table end -->
-
     </div>
-</div>
+</main>
+
 @endsection
 
 @section('scripts')
