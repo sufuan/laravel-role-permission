@@ -1,3 +1,6 @@
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 <nav class="sidenav shadow-right sidenav-light">
     <div class="sidenav-menu">
         <div class="nav accordion" id="accordionSidenav">
@@ -20,6 +23,7 @@
             </a>
 
             <!-- Sidenav Menu Heading (Roles)-->
+            @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete'))
             <div class="sidenav-menu-heading">Roles</div>
             <!-- Sidenav Accordion (Roles)-->
             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRoles" aria-expanded="false" aria-controls="collapseRoles">
@@ -29,16 +33,22 @@
             </a>
             <div class="collapse" id="collapseRoles" data-bs-parent="#accordionSidenav">
                 <nav class="sidenav-menu-nested nav">
-                    <a class="nav-link" href="{{route('admin.roles.index')}}">
+                    @if ($usr->can('role.view'))
+                    <a class="nav-link {{ Route::is('admin.roles.index') || Route::is('admin.roles.edit') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">
                         All Roles
                     </a>
-                    <a class="nav-link" href="{{route('admin.roles.create')}}">
+                    @endif
+                    @if ($usr->can('role.create'))
+                    <a class="nav-link {{ Route::is('admin.roles.create') ? 'active' : '' }}" href="{{ route('admin.roles.create') }}">
                         Create Roles
                     </a>
+                    @endif
                 </nav>
             </div>
+            @endif
 
             <!-- Sidenav Menu Heading (User)-->
+            @if ($usr->can('user.create') || $usr->can('user.view') || $usr->can('user.edit') || $usr->can('user.delete'))
             <div class="sidenav-menu-heading">User</div>
             <!-- Sidenav Accordion (User)-->
             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
@@ -48,16 +58,22 @@
             </a>
             <div class="collapse" id="collapseUsers" data-bs-parent="#accordionSidenav">
                 <nav class="sidenav-menu-nested nav">
-                    <a class="nav-link" href="{{route('admin.users.index')}}">
+                    @if ($usr->can('user.view'))
+                    <a class="nav-link {{ Route::is('admin.users.index') || Route::is('admin.users.edit') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
                         All Users
                     </a>
-                    <a class="nav-link" href="{{route('admin.users.create')}}">
+                    @endif
+                    @if ($usr->can('user.create'))
+                    <a class="nav-link {{ Route::is('admin.users.create') ? 'active' : '' }}" href="{{ route('admin.users.create') }}">
                         Create User
                     </a>
+                    @endif
                 </nav>
             </div>
+            @endif
 
             <!-- Sidenav Menu Heading (Admin)-->
+            @if ($usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') || $usr->can('admin.delete'))
             <div class="sidenav-menu-heading">Admin</div>
             <!-- Sidenav Accordion (Admin)-->
             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseAdmins" aria-expanded="false" aria-controls="collapseAdmins">
@@ -67,14 +83,19 @@
             </a>
             <div class="collapse" id="collapseAdmins" data-bs-parent="#accordionSidenav">
                 <nav class="sidenav-menu-nested nav">
-                    <a class="nav-link" href="{{route('admin.admins.index')}}">
+                    @if ($usr->can('admin.view'))
+                    <a class="nav-link {{ Route::is('admin.admins.index') || Route::is('admin.admins.edit') ? 'active' : '' }}" href="{{ route('admin.admins.index') }}">
                         All Admins
                     </a>
-                    <a class="nav-link" href="{{route('admin.admins.create')}}">
+                    @endif
+                    @if ($usr->can('admin.create'))
+                    <a class="nav-link {{ Route::is('admin.admins.create') ? 'active' : '' }}" href="{{ route('admin.admins.create') }}">
                         Create Admin
                     </a>
+                    @endif
                 </nav>
             </div>
+            @endif
 
             <!-- Sidenav Heading (Plugins)-->
             <div class="sidenav-menu-heading">Plugins</div>
@@ -91,10 +112,5 @@
         </div>
     </div>
     <!-- Sidenav Footer-->
-    <div class="sidenav-footer">
-        <div class="sidenav-footer-content">
-            <div class="sidenav-footer-subtitle">Logged in as:</div>
-            <div class="sidenav-footer-title">Valerie Luna</div>
-        </div>
-    </div>
+
 </nav>

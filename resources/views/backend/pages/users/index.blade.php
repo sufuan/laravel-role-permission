@@ -14,7 +14,7 @@
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        @if (Auth::guard('admin')->user()->can('admin.create'))
+                        @if (Auth::guard('admin')->user()->can('user.create'))
                         <a class="btn btn-sm btn-light text-primary" href="{{route('admin.users.create')}}">
                             <i class="me-1" data-feather="user-plus"></i>
                             Add New User
@@ -60,13 +60,13 @@
 
                             <td>{{ $user->created_at->format('d M Y') }}</td>
                             <td>
-                                @if (Auth::guard('admin')->user()->can('admin.edit'))
+                                @if (Auth::guard('admin')->user()->can('user.edit'))
                                 <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="{{ route('admin.users.edit', $user->id) }}">
                                     <i data-feather="edit"></i>
                                 </a>
 
                                 @endif
-                                @if (Auth::guard('admin')->user()->can('admin.delete'))
+                                @if (Auth::guard('admin')->user()->can('user.delete'))
                                 <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('admin.users.destroy', $user->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">
                                     <i data-feather="trash-2"></i>
                                 </a>
