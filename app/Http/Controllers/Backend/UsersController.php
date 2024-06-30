@@ -118,8 +118,8 @@ class UsersController extends Controller
     {
 
 
-        if (is_null($this->user) || !$this->user->can('admin.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
+        if (is_null($this->user) || !$this->user->can('user.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any user !');
         }
 
         $user = User::find($id);
@@ -138,7 +138,7 @@ class UsersController extends Controller
     {
 
 
-        if (is_null($this->user) || !$this->user->can('user.view')) {
+        if (is_null($this->user) || !$this->user->can('user.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to delete any user !');
         }
         // Create New User
