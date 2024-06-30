@@ -3,18 +3,32 @@
 @section('admin-content')
 
 <main>
-    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
-        <div class="container-xl px-4">
-            <div class="page-header-content pt-4">
-                <!-- Optional content can be added here -->
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="user"></i></div>
+                            Users List
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        @if (Auth::guard('admin')->user()->can('admin.create'))
+                        <a class="btn btn-sm btn-light text-primary" href="{{route('admin.users.create')}}">
+                            <i class="me-1" data-feather="user-plus"></i>
+                            Add New User
+                        </a>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-
-    <!-- Main page content -->
-    <div class="container-xl px-4 mt-n10 pb-10">
-        <div class="card mb-4">
-            <div class="card-header">Extended DataTables</div>
+    @include('backend.layouts.partials.messages')
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
             <div class="card-body">
                 <table id="datatablesSimple" class="table table-bordered">
                     <thead>
@@ -46,9 +60,13 @@
 
                             <td>{{ $user->created_at->format('d M Y') }}</td>
                             <td>
+                                @if (Auth::guard('admin')->user()->can('admin.edit'))
                                 <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="{{ route('admin.users.edit', $user->id) }}">
                                     <i data-feather="edit"></i>
                                 </a>
+
+                                @endif
+                                @if (Auth::guard('admin')->user()->can('admin.delete'))
                                 <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('admin.users.destroy', $user->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">
                                     <i data-feather="trash-2"></i>
                                 </a>
@@ -56,6 +74,7 @@
                                     @method('DELETE')
                                     @csrf
                                 </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
