@@ -38,7 +38,12 @@
                                 </div>
                             </td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->roles->pluck('name')->implode(', ') }}</td>
+                            <td>
+                                @foreach($user->roles as $role)
+                                <span class="badge badge-info">{{ $role->name }}</span>
+                                @endforeach
+                            </td>
+
                             <td>{{ $user->created_at->format('d M Y') }}</td>
                             <td>
                                 <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="{{ route('admin.users.edit', $user->id) }}">
