@@ -71,8 +71,8 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 
-        if (is_null($this->user) || !$this->user->can('user.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit any user !');
+        if (is_null($this->user) || !$this->user->can('user.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any user !');
         }
 
         // Validation Data
@@ -80,6 +80,20 @@ class UsersController extends Controller
             'name' => 'required|max:50',
             'email' => 'required|max:100|email|unique:users',
             'password' => 'required|min:6|confirmed',
+            'phone' => 'required',
+            'session' => 'nullable',
+            'department' => 'nullable',
+            'gender' => 'nullable',
+            'date_of_birth' => 'nullable|date',
+            'blood_group' => 'nullable',
+            'class_roll' => 'nullable',
+            'father_name' => 'nullable|max:50',
+            'mother_name' => 'nullable|max:50',
+            'current_address' => 'nullable',
+            'permanent_address' => 'nullable',
+            'image' => 'nullable',
+            'skills' => 'nullable',
+            'transaction_id' => 'required',
         ]);
 
         // Create New User
@@ -87,6 +101,22 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->phone = $request->phone;
+        $user->usertype = 'member'; // Default usertype
+        $user->session = $request->session;
+        $user->department = $request->department;
+        $user->gender = $request->gender;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->blood_group = $request->blood_group;
+        $user->class_roll = $request->class_roll;
+        $user->father_name = $request->father_name;
+        $user->mother_name = $request->mother_name;
+        $user->current_address = $request->current_address;
+        $user->permanent_address = $request->permanent_address;
+        // Handle image upload if needed
+        // $user->image = $request->file('image')->store('images'); // Example
+        $user->skills = $request->skills;
+        $user->transaction_id = $request->transaction_id;
         $user->save();
 
         if ($request->roles) {
