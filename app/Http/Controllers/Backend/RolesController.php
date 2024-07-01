@@ -33,6 +33,13 @@ class RolesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to view any role !');
         }
 
+
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
+
+
         $roles = Role::all();
         return view('backend.pages.roles.index', compact('roles'));
     }

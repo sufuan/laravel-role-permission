@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminsController extends Controller
 {
+
+
+
     public $user;
 
     public function __construct()
@@ -28,6 +32,14 @@ class AdminsController extends Controller
      */
     public function index()
     {
+
+
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
+
+
         if (is_null($this->user) || !$this->user->can('admin.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
@@ -83,7 +95,9 @@ class AdminsController extends Controller
             $admin->assignRole($request->roles);
         }
 
-        session()->flash('success', 'Admin has been created !!');
+        // Success Alert
+        Alert::success('Success', 'Admin has been created successfully!')->showConfirmButton('OK', '#3085d6');
+
         return redirect()->route('admin.admins.index');
     }
 
@@ -189,7 +203,10 @@ class AdminsController extends Controller
             $admin->delete();
         }
 
-        session()->flash('success', 'Admin has been deleted !!');
-        return back();
+        session()->flash('success', 'Admin has been Deleted successfully!');
+
+
+
+        return back()->withType('message');
     }
 }

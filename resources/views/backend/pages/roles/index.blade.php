@@ -58,13 +58,13 @@
                                 @endif
                                 @if(Auth::guard('admin')->user()->can('role.delete'))
 
-                                <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="{{ route('admin.roles.destroy', $role->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $role->id }}').submit();">
-                                    <i class="fa-regular fa-trash-can"></i>
+
+
+                                <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('admin.roles.destroy', $role->id) }}" data-confirm-delete="true"> <i data-feather="trash-2" style="width: 36px; height: 36px;"></i>
                                 </a>
-                                <form id="delete-form-{{ $role->id }}" action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" style="display: none;">
-                                    @method('DELETE')
-                                    @csrf
-                                </form>
+
+
+
                                 @endif
                             </td>
                         </tr>

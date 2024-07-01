@@ -95,17 +95,92 @@ User Edit - Admin Panel
                                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password">
                                 </div>
                             </div>
-                            <!-- Form Group (roles)-->
-                            <div class="form-group">
-                                <label for="roles" class="small mb-1">Assign Roles</label>
-                                <select name="roles[]" id="roles" class="form-control select2" multiple>
-                                    @foreach ($roles as $role)
-                                    <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
+                            <!-- Additional fields -->
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputPhone">Phone</label>
+                                    <input class="form-control" id="inputPhone" type="text" name="phone" placeholder="Enter Phone" value="{{ $user->phone }}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputSession">Session</label>
+                                    <input class="form-control" id="inputSession" type="text" name="session" placeholder="Enter Session" value="{{ $user->session }}" />
+                                </div>
                             </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputDepartment">Department</label>
+                                    <input class="form-control" id="inputDepartment" type="text" name="department" placeholder="Enter Department" value="{{ $user->department }}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputGender">Gender</label>
+                                    <select name="gender" id="inputGender" class="form-control">
+                                        <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
+                                        <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
+                                        <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputDateOfBirth">Date of Birth</label>
+                                    <input class="form-control" id="inputDateOfBirth" type="date" name="date_of_birth" value="{{ $user->date_of_birth }}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputBloodGroup">Blood Group</label>
+                                    <select name="blood_group" id="inputBloodGroup" class="form-control">
+                                        <option value="A+" {{ $user->blood_group == 'A+' ? 'selected' : '' }}>A+</option>
+                                        <option value="A-" {{ $user->blood_group == 'A-' ? 'selected' : '' }}>A-</option>
+                                        <option value="B+" {{ $user->blood_group == 'B+' ? 'selected' : '' }}>B+</option>
+                                        <option value="B-" {{ $user->blood_group == 'B-' ? 'selected' : '' }}>B-</option>
+                                        <option value="AB+" {{ $user->blood_group == 'AB+' ? 'selected' : '' }}>AB+</option>
+                                        <option value="AB-" {{ $user->blood_group == 'AB-' ? 'selected' : '' }}>AB-</option>
+                                        <option value="O+" {{ $user->blood_group == 'O+' ? 'selected' : '' }}>O+</option>
+                                        <option value="O-" {{ $user->blood_group == 'O-' ? 'selected' : '' }}>O-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputClassRoll">Class Roll</label>
+                                    <input class="form-control" id="inputClassRoll" type="text" name="class_roll" placeholder="Enter Class Roll" value="{{ $user->class_roll }}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFatherName">Father's Name</label>
+                                    <input class="form-control" id="inputFatherName" type="text" name="father_name" placeholder="Enter Father's Name" value="{{ $user->father_name }}" />
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputMotherName">Mother's Name</label>
+                                    <input class="form-control" id="inputMotherName" type="text" name="mother_name" placeholder="Enter Mother's Name" value="{{ $user->mother_name }}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputCurrentAddress">Current Address</label>
+                                    <input class="form-control" id="inputCurrentAddress" type="text" name="current_address" placeholder="Enter Current Address" value="{{ $user->current_address }}" />
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputPermanentAddress">Permanent Address</label>
+                                    <input class="form-control" id="inputPermanentAddress" type="text" name="permanent_address" placeholder="Enter Permanent Address" value="{{ $user->permanent_address }}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputSkills">Skills</label>
+                                    <input class="form-control" id="inputSkills" type="text" name="skills" placeholder="Enter Skills" value="{{ $user->skills }}" />
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputTransactionId">Transaction ID</label>
+                                    <input class="form-control" id="inputTransactionId" type="text" name="transaction_id" placeholder="Enter Transaction ID" value="{{ $user->transaction_id }}" />
+                                </div>
+                                <!-- Add more fields as needed -->
+                            </div>
+                            <!-- Form Group (roles)-->
+
                             <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save User</button>
                         </form>
+
                     </div>
                 </div>
             </div>

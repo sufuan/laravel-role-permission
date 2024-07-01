@@ -39,6 +39,11 @@ class UsersController extends Controller
         }
 
 
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
+
         $users = User::all();
         return view('backend.pages.users.index', compact('users'));
     }
@@ -166,37 +171,65 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
+        // Check authorization
         if (is_null($this->user) || !$this->user->can('user.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to delete any user !');
+            abort(403, 'Sorry !! You are Unauthorized to edit any user !');
         }
-        // Create New User
+
+        // Find the user by ID
         $user = User::find($id);
 
-        // Validation Data
+        // Validate input data
         $request->validate([
             'name' => 'required|max:50',
-            'email' => 'required|max:100|email|unique:users,email,' . $id,
+            'email' => 'required|email|max:100|unique:users,email,' . $id,
             'password' => 'nullable|min:6|confirmed',
+            'phone' => 'required',
+            'session' => 'nullable',
+            'department' => 'nullable',
+            'gender' => 'nullable',
+            'date_of_birth' => 'nullable|date',
+            'blood_group' => 'nullable',
+            'class_roll' => 'nullable',
+            'father_name' => 'nullable|max:50',
+            'mother_name' => 'nullable|max:50',
+            'current_address' => 'nullable',
+            'permanent_address' => 'nullable',
+            'skills' => 'nullable',
+            // 'transaction_id' => 'required',
         ]);
 
-
+        // Update user data
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
+        $user->phone = $request->phone;
+        $user->session = $request->session;
+        $user->department = $request->department;
+        $user->gender = $request->gender;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->blood_group = $request->blood_group;
+        $user->class_roll = $request->class_roll;
+        $user->father_name = $request->father_name;
+        $user->mother_name = $request->mother_name;
+        $user->current_address = $request->current_address;
+        $user->permanent_address = $request->permanent_address;
+        $user->skills = $request->skills;
+        // $user->transaction_id = $request->transaction_id;
+
+        // Save updated user
         $user->save();
 
-        $user->roles()->detach();
-        if ($request->roles) {
-            $user->assignRole($request->roles);
-        }
+        // Sync roles
+        $user->roles()->sync($request->roles);
 
+        // Flash success message and redirect back
         session()->flash('success', 'User has been updated !!');
-        return back();
+        return redirect()->route('admin.users.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

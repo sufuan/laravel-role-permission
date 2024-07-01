@@ -25,7 +25,6 @@
             </div>
         </div>
     </header>
-    @include('backend.layouts.partials.messages')
     <!-- Main page content-->
     <div class="container-fluid px-4">
         <div class="card">
@@ -67,13 +66,11 @@
 
                                 @endif
                                 @if (Auth::guard('admin')->user()->can('user.delete'))
-                                <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('admin.users.destroy', $user->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">
-                                    <i data-feather="trash-2"></i>
+
+
+                                <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('admin.users.destroy', $user->id) }}" data-confirm-delete="true"> <i data-feather="trash-2" style="width: 36px; height: 36px;"></i>
                                 </a>
-                                <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display: none;">
-                                    @method('DELETE')
-                                    @csrf
-                                </form>
+
                                 @endif
                             </td>
                         </tr>
