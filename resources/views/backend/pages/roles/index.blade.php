@@ -15,8 +15,8 @@
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
                         @if (Auth::guard('admin')->user()->can('role.create'))
-                        <a class="btn btn-sm btn-light text-primary" href="{{route('admin.roles.create')}}">
-                            <i class="me-1" data-feather="user-plus"></i>
+                        <a class="btn btn-md btn-light text-primary" href="{{route('admin.roles.create')}}">
+                            <i class="me-1" data-feather="shield" style="width: 16px; height: 16px;"></i>
                             Add New Roles
                         </a>
                         @endif
@@ -27,7 +27,7 @@
     </header>
     @include('backend.layouts.partials.messages')
     <!-- Main page content-->
-    <div class="container-fluid px-4">
+    <div class=" container-fluid px-4">
         <div class="card">
             <div class="card-body">
                 <table id="datatablesSimple" class="display">
