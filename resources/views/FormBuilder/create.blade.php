@@ -8,9 +8,10 @@
 <div class="card">
     <div class="card-body">
         <label for="name">{{ __('Name') }}</label>
-        <input type="text" id="name" name="name" class="form-control" />
+        <input type="text" id="name" name="name" class="form-control" required />
         <div id="fb-editor"></div>
     </div>
+
 </div>
 @endsection
 

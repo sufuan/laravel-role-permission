@@ -35,7 +35,8 @@ class User extends Authenticatable
         'permanent_address',
         'image',
         'skills',
-        'transaction_id'
+        'transaction_id',
+        'custom-form'
     ];
 
 

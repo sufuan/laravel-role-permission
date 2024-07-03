@@ -30,6 +30,7 @@ class AddFieldsToUsersTable extends Migration
             $table->string('image')->nullable();
             $table->text('skills')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->JSON('custom-form')->nullable();
         });
     }
 

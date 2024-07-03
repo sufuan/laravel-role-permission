@@ -29,6 +29,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->request->remove('_token');
+
+        // Validate the standard user fields
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -46,6 +49,17 @@ class RegisteredUserController extends Controller
             'permanent_address' => ['nullable', 'string', 'max:255'],
         ]);
 
+        // Extract and validate the custom form data
+        $customFormData = $request->except([
+            'name', 'email', 'password', 'password_confirmation', 'phone', 'usertype', 'session',
+            'department', 'gender', 'date_of_birth', 'blood_group', 'class_roll', 'father_name',
+            'mother_name', 'current_address', 'permanent_address'
+        ]);
+
+        // Optionally, you can validate custom form data here if needed
+        // $request->validate([...]);
+
+        // Create the user with standard attributes and custom form data
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -62,6 +76,7 @@ class RegisteredUserController extends Controller
             'mother_name' => $request->mother_name,
             'current_address' => $request->current_address,
             'permanent_address' => $request->permanent_address,
+            'custom-form' => json_encode($customFormData) // Save custom form data as JSON
         ]);
 
         event(new Registered($user));
