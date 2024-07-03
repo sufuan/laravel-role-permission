@@ -15,7 +15,7 @@ class AddFieldsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Define your additional fields here
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('usertype')->nullable();
             $table->string('session')->nullable();
             $table->string('department')->nullable();
@@ -29,7 +29,7 @@ class AddFieldsToUsersTable extends Migration
             $table->text('permanent_address')->nullable();
             $table->string('image')->nullable();
             $table->text('skills')->nullable();
-            $table->string('transaction_id');
+            $table->string('transaction_id')->nullable();
         });
     }
 

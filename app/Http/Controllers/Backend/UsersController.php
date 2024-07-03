@@ -85,7 +85,7 @@ class UsersController extends Controller
             'name' => 'required|max:50',
             'email' => 'required|max:100|email|unique:users',
             'password' => 'required|min:6|confirmed',
-            'phone' => 'required',
+            'phone' => 'nullable',
             'session' => 'nullable',
             'department' => 'nullable',
             'gender' => 'nullable',
@@ -98,7 +98,7 @@ class UsersController extends Controller
             'permanent_address' => 'nullable',
             'image' => 'nullable',
             'skills' => 'nullable',
-            'transaction_id' => 'required',
+            'transaction_id' => 'nullable',
         ]);
 
         // Create New User
