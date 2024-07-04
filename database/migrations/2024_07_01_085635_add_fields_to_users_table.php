@@ -6,17 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 class AddFieldsToUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            // Define your additional fields here
             $table->string('phone')->nullable();
-            $table->string('usertype')->nullable();
+            $table->enum('usertype', ['user', 'volunteer', 'executive'])->default('user');
             $table->string('session')->nullable();
             $table->string('department')->nullable();
             $table->string('gender')->nullable();
@@ -30,34 +24,18 @@ class AddFieldsToUsersTable extends Migration
             $table->string('image')->nullable();
             $table->text('skills')->nullable();
             $table->string('transaction_id')->nullable();
-            $table->JSON('custom-form')->nullable();
+            $table->json('custom-form')->nullable();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            // Rollback the changes made in the 'up' method
-            $table->dropColumn('phone');
-            $table->dropColumn('usertype');
-            $table->dropColumn('session');
-            $table->dropColumn('department');
-            $table->dropColumn('gender');
-            $table->dropColumn('date_of_birth');
-            $table->dropColumn('blood_group');
-            $table->dropColumn('class_roll');
-            $table->dropColumn('father_name');
-            $table->dropColumn('mother_name');
-            $table->dropColumn('current_address');
-            $table->dropColumn('permanent_address');
-            $table->dropColumn('image');
-            $table->dropColumn('skills');
-            $table->dropColumn('transaction_id');
+            $table->dropColumn([
+                'phone', 'usertype', 'session', 'department', 'gender', 'date_of_birth',
+                'blood_group', 'class_roll', 'father_name', 'mother_name', 'current_address',
+                'permanent_address', 'image', 'skills', 'transaction_id', 'custom-form'
+            ]);
         });
     }
 }

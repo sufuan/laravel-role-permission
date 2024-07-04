@@ -107,7 +107,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->phone = $request->phone;
-        $user->usertype = 'member'; // Default usertype
+        $user->usertype = 'user'; // Default usertype
         $user->session = $request->session;
         $user->department = $request->department;
         $user->gender = $request->gender;

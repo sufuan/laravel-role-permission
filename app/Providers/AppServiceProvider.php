@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+
+
+use App\Models\Post;
+use App\Observers\PostObserver;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if (env('REDIRECT_HTTPS')) {
             URL::forceScheme('https');
-        }
+        };
+        Post::observe(PostObserver::class);
     }
 }

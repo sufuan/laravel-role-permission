@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             $user->email = "manirujjamanakash@gmail.com";
             $user->password = Hash::make('12345678');
             $user->phone = "1234567890"; // Example phone number
-            $user->usertype = "admin"; // Example user type
+            $user->usertype = "user"; // Example user type
             $user->session = "2023"; // Example session
             $user->department = "IT"; // Example department
             $user->gender = "male"; // Example gender

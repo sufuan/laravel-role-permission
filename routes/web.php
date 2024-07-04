@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormBuilderController;
@@ -17,9 +18,9 @@ Route::get('/banner', function () {
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,22 +42,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Logout Routes
     Route::post('/logout/submit', 'Backend\Auth\LoginController@logout')->name('admin.logout.submit');
-
-    // Forget Password Routes
-    // Route::get('/password/reset', 'Backend\Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
-    // Route::post('/password/reset/submit', 'Backend\Auth\ForgetPasswordController@reset')->name('admin.password.update');
 });
 
 
-// // Step 1
-// Route::get('form-builder', [FormBuilderController::class, 'index']);
-// // Step 2
-// Route::view('formbuilder', 'FormBuilder.create');
-// // Step 3
-// Route::post('save-form-builder', [FormBuilderController::class, 'create']);
-// // Route::post('/form-builder/create', [FormBuilderController::class, 'create'])->name('formBuilder.create');
-// // Step 4
-// Route::delete('form-delete/{id}', [FormBuilderController::class, 'destroy']);
 
 
 // Step 1
@@ -82,6 +70,16 @@ Route::get('get-form-builder', [FormsController::class, 'read']);
 Route::post('save-form-transaction', [FormsController::class, 'create']);
 
 // End Form Builder===============================================================
+
+
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
+    Route::post('/store_default_post', [PostController::class, 'storeDefault'])->name('store_default_post');
+    Route::post('/store_form_post', [PostController::class, 'storeForm'])->name('store_form_post');
+    Route::patch('/post/{post}/update_status', [PostController::class, 'updateStatus'])->name('post.update_status');
+});
 
 
 require __DIR__ . '/auth.php';
