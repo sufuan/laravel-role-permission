@@ -18,9 +18,7 @@ Route::get('/banner', function () {
 
 
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -77,7 +75,6 @@ Route::post('save-form-transaction', [FormsController::class, 'create']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
     Route::post('/store_default_post', [PostController::class, 'storeDefault'])->name('store_default_post');
-    Route::post('/store_form_post', [PostController::class, 'storeForm'])->name('store_form_post');
     Route::patch('/post/{post}/update_status', [PostController::class, 'updateStatus'])->name('post.update_status');
 });
 

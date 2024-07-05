@@ -14,11 +14,6 @@ class PostController extends Controller
         return view('dashboard', compact('posts'));
     }
 
-    public function create()
-    {
-        return view('create_post');
-    }
-
     public function storeDefault()
     {
         $user = Auth::user();
@@ -28,36 +23,23 @@ class PostController extends Controller
         }
 
         Post::create([
-            'title' => 'post title',
-            'description' => 'post des',
             'post_status' => 'pending',
+            'name' => $user->name,
+            'email' => $user->email,
             'user_id' => $user->id,
+            'phone' => $user->phone,
+
+            'session' => $user->session,
+            'department' => $user->department,
+            'gender' => $user->gender,
+
+            'image' => $user->image,
+            'skills' => $user->skills,
+            'transaction_id' => $user->transaction_id,
+            'custom_form' => $user->custom_form,
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Default post created successfully.');
-    }
-
-    public function storeForm(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
-
-        $user = Auth::user();
-
-        if ($user->posts()->exists()) {
-            return redirect()->route('dashboard')->with('error', 'You already have a post.');
-        }
-
-        Post::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'post_status' => 'pending',
-            'user_id' => $user->id,
-        ]);
-
-        return redirect()->route('dashboard')->with('success', 'Post created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Volunteer application submitted successfully.');
     }
 
     public function updateStatus(Request $request, Post $post)
