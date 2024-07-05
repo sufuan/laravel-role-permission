@@ -12,14 +12,13 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
+            $table->string('password')->nullable(); // Add password field
             $table->enum('post_status', ['pending', 'published'])->default('pending');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // Make user_id nullable
             $table->string('phone')->nullable();
-
             $table->string('session')->nullable();
             $table->string('department')->nullable();
             $table->string('gender')->nullable();
-
             $table->string('image')->nullable();
             $table->text('skills')->nullable();
             $table->string('transaction_id')->nullable();

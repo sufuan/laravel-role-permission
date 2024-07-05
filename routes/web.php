@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\FormBuilderController;
 
 Route::get('/', function () {
@@ -33,14 +34,18 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
 
-
     // Login Routes
     Route::get('/login', 'Backend\Auth\LoginController@showLoginForm')->name('admin.login');
     Route::post('/login/submit', 'Backend\Auth\LoginController@login')->name('admin.login.submit');
 
     // Logout Routes
     Route::post('/logout/submit', 'Backend\Auth\LoginController@logout')->name('admin.logout.submit');
+
+    // Volunteer Management Routes
+    Route::get('/volunteers', 'Backend\VolunteerController@showPendingVolunteers')->name('admin.volunteers');
+    Route::post('/volunteers/approve/{id}', 'Backend\VolunteerController@approveVolunteer')->name('admin.volunteers.approve');
 });
+
 
 
 
@@ -78,5 +83,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/post/{post}/update_status', [PostController::class, 'updateStatus'])->name('post.update_status');
 });
 
+
+Route::get('/volunteer/register', [VolunteerController::class, 'showRegisterForm'])->name('volunteer.register');
+Route::post('/volunteer/register', [VolunteerController::class, 'register']);
 
 require __DIR__ . '/auth.php';
