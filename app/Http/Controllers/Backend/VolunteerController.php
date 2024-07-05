@@ -21,18 +21,28 @@ class VolunteerController extends Controller
     {
         $volunteer = Post::findOrFail($id);
 
-        // Create a new user with volunteer's details
-        $user = User::create([
-            'name' => $volunteer->name,
-            'email' => $volunteer->email,
-            'password' => $volunteer->password,
-            'phone' => $volunteer->phone,
-            // Add other fields as needed
-        ]);
+        // Check if the user already exists
+        $existingUser = User::where('email', $volunteer->email)->first();
 
-        // Update the post status and associate with the new user
-        $volunteer->post_status = 'published';
-        $volunteer->user_id = $user->id;
+        if ($existingUser) {
+            // Update the post status and associate with the existing user
+            $volunteer->post_status = 'published';
+            $volunteer->user_id = $existingUser->id;
+        } else {
+            // Create a new user with volunteer's details
+            $user = User::create([
+                'name' => $volunteer->name,
+                'email' => $volunteer->email,
+                'password' => $volunteer->password, // Assuming the password is already hashed
+                'phone' => $volunteer->phone,
+                // Add other fields as needed
+            ]);
+
+            // Update the post status and associate with the new user
+            $volunteer->post_status = 'published';
+            $volunteer->user_id = $user->id;
+        }
+
         $volunteer->save();
 
         return redirect()->route('admin.volunteers')->with('status', 'Volunteer approved and added to users.');

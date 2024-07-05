@@ -28,7 +28,7 @@ class PostController extends Controller
             'email' => $user->email,
             'user_id' => $user->id,
             'phone' => $user->phone,
-
+            'password' => $user->password,
             'session' => $user->session,
             'department' => $user->department,
             'gender' => $user->gender,
