@@ -43,7 +43,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Volunteer Management Routes
     Route::get('/volunteers', 'Backend\VolunteerController@showPendingVolunteers')->name('admin.volunteers');
+    Route::get('/volunteers/view', 'Backend\VolunteerController@showVolunteersView')->name('admin.volunteers.view');
     Route::post('/volunteers/approve/{id}', 'Backend\VolunteerController@approveVolunteer')->name('admin.volunteers.approve');
+    Route::patch('/volunteers/status/{id}', 'Backend\VolunteerController@updateVolunteerStatus')->name('admin.volunteers.update_status');
 });
 
 
