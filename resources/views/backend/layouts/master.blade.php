@@ -19,6 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('css')
 </head>
 
 <body class="nav-fixed">
@@ -36,6 +37,17 @@
             @include('backend.layouts.partials.footer')
         </div>
     </div>
+
+
+
+
+
+    <!-- scripts starts -->
+
+
+
+
+
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
@@ -45,6 +57,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <!-- Local Scripts -->
     <script src="{{ asset('js/scripts.js') }}"></script>
+
+
+    @stack('scripts')
+
+
 
     <!-- Feather Icons Initialization -->
     <script>

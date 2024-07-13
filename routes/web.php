@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\EventsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\FormsController;
@@ -46,6 +47,30 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/volunteers/view', 'Backend\VolunteerController@showVolunteersView')->name('admin.volunteers.view');
     Route::post('/volunteers/approve/{id}', 'Backend\VolunteerController@approveVolunteer')->name('admin.volunteers.approve');
     Route::patch('/volunteers/status/{id}', 'Backend\VolunteerController@updateVolunteerStatus')->name('admin.volunteers.update_status');
+
+
+    // events 
+
+    // Display a listing of the resource.
+    Route::get('events', [EventsController::class, 'index'])->name('events.index');
+
+    Route::get('events-refetch', [EventsController::class, 'refetchEvents'])->name('events.refetch');
+    Route::post('events', [EventsController::class, 'store'])->name('events.store');
+
+    // Store a newly created resource in storage.
+
+
+    // Display the specified resource.
+    Route::get('events/{event}', [EventsController::class, 'show'])->name('events.show');
+
+    // Show the form for editing the specified resource.
+    Route::get('events/{event}/edit', [EventsController::class, 'edit'])->name('events.edit');
+
+    // Update the specified resource in storage.
+    Route::put('events/{event}', [EventsController::class, 'update'])->name('events.update');
+
+    // Remove the specified resource from storage.
+    Route::delete('events/{event}', [EventsController::class, 'destroy'])->name('events.destroy');
 });
 
 
