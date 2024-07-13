@@ -20,6 +20,8 @@ class Event extends Model
         'is_all_day',
         'description',
         'event_id',
+        'countdown', // Add this line
+
     ];
 
     // You can add relationships, scopes, and other model methods here

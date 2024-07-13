@@ -10,6 +10,12 @@ use Illuminate\Validation\ValidationException;
 
 class EventsController extends Controller
 {
+    public function list()
+    {
+        $events = Event::all();
+        return view('backend.pages.events.list', compact('events'));
+    }
+
     public function index()
     {
         return view('backend.pages.events.index');
@@ -93,6 +99,7 @@ class EventsController extends Controller
             'endDate' => ['required', 'date_format:' . $endDateFormat, 'after_or_equal:startDate'],
             'is_all_day' => 'required|boolean',
             'description' => 'nullable|string',
+            'countdown' => 'boolean',
         ], [
             'endDate.after_or_equal' => 'The end date must be a date after or equal to start date.',
         ]);
@@ -105,5 +112,29 @@ class EventsController extends Controller
         $event->end = $validatedData['endDate'];
         $event->is_all_day = $validatedData['is_all_day'];
         $event->description = $validatedData['description'];
+        $event->countdown = $validatedData['countdown'] ?? 0;
+    }
+
+    public function updateCountdown(Request $request, Event $event)
+    {
+        try {
+            $event->countdown = $request->input('countdown') ? 1 : 0;
+            $event->save();
+
+            return response()->json(['success' => 'Countdown status updated successfully.']);
+        } catch (\Exception $e) {
+            Log::error('Error updating countdown status', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'Failed to update countdown status.'], 500);
+        }
+    }
+
+    public function editDetails(Event $event)
+    {
+        return view('backend.pages.events.edit-details', compact('event'));
+    }
+
+    public function showDetails(Event $event)
+    {
+        return view('backend.pages.events.details', compact('event'));
     }
 }

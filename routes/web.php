@@ -50,6 +50,11 @@ Route::group(['prefix' => 'admin'], function () {
 
 
     // events 
+    Route::get('events-list', [EventsController::class, 'list'])->name('events.list');
+    Route::post('events/{event}/countdown', [EventsController::class, 'updateCountdown'])->name('events.updateCountdown');
+    Route::get('events/{event}/edit-details', [EventsController::class, 'editDetails'])->name('events.editDetails');
+    Route::get('events/{event}/details', [EventsController::class, 'showDetails'])->name('events.showDetails');
+
 
     // Display a listing of the resource.
     Route::get('events', [EventsController::class, 'index'])->name('events.index');

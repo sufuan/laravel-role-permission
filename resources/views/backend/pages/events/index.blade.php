@@ -127,12 +127,16 @@
 
                 // Format start date
                 const startDate = new Date(event.start);
-                const formattedStartDate = startDate.toISOString().slice(0, 16).replace('T', ' ');
+                const formattedStartDate = event.allDay ?
+                    startDate.toISOString().slice(0, 10) :
+                    startDate.toISOString().slice(0, 16).replace('T', ' ');
                 document.getElementById('startDateTime').value = formattedStartDate;
 
                 // Format end date
                 const endDate = event.end ? new Date(event.end) : startDate;
-                const formattedEndDate = endDate.toISOString().slice(0, 16).replace('T', ' ');
+                const formattedEndDate = event.allDay ?
+                    endDate.toISOString().slice(0, 10) :
+                    endDate.toISOString().slice(0, 16).replace('T', ' ');
                 document.getElementById('endDateTime').value = formattedEndDate;
 
                 document.getElementById('description').value = event.extendedProps.description;
@@ -145,7 +149,8 @@
                     keyboard: false
                 });
                 eventModal.show();
-            },
+            }
+
 
 
         });
