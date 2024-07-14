@@ -2,18 +2,49 @@
 
 @section('admin-content')
 <div class="container">
-    <h1>Event Details</h1>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">{{ $event->title }}</h5>
-            <p class="card-text"><strong>Start:</strong> {{ $event->start }}</p>
-            <p class="card-text"><strong>End:</strong> {{ $event->end }}</p>
-            <p class="card-text"><strong>All Day:</strong> {{ $event->is_all_day ? 'Yes' : 'No' }}</p>
-            <p class="card-text"><strong>Description:</strong> {{ $event->description }}</p>
-            <p class="card-text"><strong>Countdown:</strong> {{ $event->countdown ? 'Enabled' : 'Disabled' }}</p>
+    <h1>Event Details: {{ $event->title }}</h1>
+    <p><strong>Start:</strong> {{ $event->start }}</p>
+    <p><strong>End:</strong> {{ $event->end }}</p>
+    <p><strong>Description:</strong> {{ $event->description }}</p>
 
-            <a href="{{ route('events.editDetails', $event->id) }}" class="btn btn-primary">Edit Details</a>
-        </div>
-    </div>
+    @if($event->countdown)
+    <h3>Countdown Timer</h3>
+    <div id="countdown"></div>
+    @endif
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const countdownElement = document.getElementById('countdown');
+        const eventStartDate = new Date("{{ $event->start }}").getTime();
+        const eventEndDate = new Date("{{ $event->end }}").getTime();
+        const now = new Date().getTime();
+
+        function updateCountdown() {
+            const distance = eventStartDate - now;
+
+            if (distance < 0 && (now - eventEndDate) < 0) {
+                countdownElement.innerHTML = "Event is ongoing!";
+                return;
+            } else if (distance < 0) {
+                countdownElement.innerHTML = "Event has finished!";
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s `;
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call to display immediately
+    });
+</script>
+
+@endpush
 @endsection
