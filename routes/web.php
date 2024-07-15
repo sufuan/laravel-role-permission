@@ -43,16 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // frontend form builder 
 
-Route::get('form-builder', [FormBuilderController::class, 'index']);
-Route::view('formbuilder', 'FormBuilder.create');
-Route::post('save-form-builder', [FormBuilderController::class, 'create']);
-Route::delete('form-delete/{id}', [FormBuilderController::class, 'destroy']);
-Route::view('edit-form-builder/{id}', 'FormBuilder.edit');
-Route::get('get-form-builder-edit', [FormBuilderController::class, 'editData']);
-Route::post('update-form-builder', [FormBuilderController::class, 'update']);
-Route::view('read-form-builder/{id}', 'FormBuilder.read');
-Route::get('get-form-builder', [FormsController::class, 'read']);
-Route::post('save-form-transaction', [FormsController::class, 'create']);
+
 
 // End Form Builder===============================================================
 
@@ -125,6 +116,18 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Remove the specified resource from storage.
     Route::delete('events/{event}', [EventsController::class, 'destroy'])->name('events.destroy');
+
+
+    Route::get('form-builder', [FormBuilderController::class, 'index']);
+    Route::view('formbuilder', 'backend.pages.FormBuilder.create');  // Corrected path
+    Route::post('save-form-builder', [FormBuilderController::class, 'create']);
+    Route::delete('form-delete/{id}', [FormBuilderController::class, 'destroy']);
+    Route::view('edit-form-builder/{id}', 'backend.pages.FormBuilder.edit');  // Corrected path
+    Route::get('get-form-builder-edit', [FormBuilderController::class, 'editData']);
+    Route::post('update-form-builder', [FormBuilderController::class, 'update']);
+    Route::view('read-form-builder/{id}', 'backend.pages.FormBuilder.read');  // Corrected path
+    Route::get('get-form-builder', [FormsController::class, 'read']);
+    Route::post('save-form-transaction', [FormsController::class, 'create']);
 
 
     // Route::group(['prefix' => 'templates'], function () {

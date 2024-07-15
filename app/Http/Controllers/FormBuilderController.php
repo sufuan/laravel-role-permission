@@ -11,7 +11,7 @@ class FormBuilderController extends Controller
     public function index()
     {
         $forms = FormBuilder::all();
-        return view('FormBuilder.index', compact('forms'));
+        return view('backend/pages/FormBuilder.index', compact('forms'));
     }
 
     public function create(Request $request)
@@ -43,6 +43,6 @@ class FormBuilderController extends Controller
         $form = FormBuilder::findOrFail($id);
         $form->delete();
 
-        return redirect('form-builder')->with('success', 'Form deleted successfully');
+        return redirect('admin/form-builder')->with('success', 'Form deleted successfully');
     }
 }

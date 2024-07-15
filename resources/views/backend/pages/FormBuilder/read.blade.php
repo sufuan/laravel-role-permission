@@ -1,9 +1,11 @@
-@extends('layouts.app')
-@section('head')
-<title>{{ __('Example formBuilder') }}</title>
+@extends('backend.layouts.master')
+
+@section('title')
+Dashboard Page - Admin Panel
 @endsection
 
-@section('content')
+
+@section('admin-content')
 <div class="card">
     <div class="card-body">
         <form method="POST" action="{{ URL('save-form-transaction') }}" enctype="multipart/form-data">
@@ -15,7 +17,7 @@
     </div>
 </div>
 @endsection
-@section('script')
+@push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script src="{{ URL::asset('assets/form-builder/form-render.min.js') }}"></script>
 <script>
@@ -25,7 +27,7 @@
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
-            url: "{{ URL('get-form-builder') }}",
+            url: "{{ URL('admin/get-form-builder') }}",
             data: {
                 'id': "{{ $id }}"
             },
@@ -38,4 +40,4 @@
         });
     });
 </script>
-@endsection
+@endpush

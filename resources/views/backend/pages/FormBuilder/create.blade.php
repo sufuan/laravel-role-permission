@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('backend.layouts.master')
 
-@section('head')
-<title>{{ __('Example formBuilder') }}</title>
+@section('title')
+Dashboard Page - Admin Panel
 @endsection
 
-@section('content')
+
+@section('admin-content')
 <div class="card">
     <div class="card-body">
         <label for="name">{{ __('Name') }}</label>
@@ -15,8 +16,8 @@
 </div>
 @endsection
 
-@section('script')
-<script src="{{ URL::asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+@push('scripts')
+<!-- <script src="{{ URL::asset('assets/js/jquery-3.7.1.min.js') }}"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script src="{{ URL::asset('assets/form-builder/form-builder.min.js') }}"></script>
 <script>
@@ -33,7 +34,7 @@
         $.ajax({
             type: 'post',
 
-            url: "{{ url('save-form-builder') }}",
+            url: "{{ url('admin/save-form-builder') }}",
             data: {
                 'form': form,
                 'name': $("#name").val(),
@@ -41,7 +42,7 @@
             },
             success: function(data) {
                 console.log(data);
-                location.href = "{{ url('form-builder') }}"; // Correct redirection URL
+                location.href = "{{ url('admin/form-builder') }}"; // Correct redirection URL
             },
             error: function(xhr, status, error) {
                 console.error('Error occurred:', status, error);
@@ -49,4 +50,4 @@
         });
     }
 </script>
-@endsection
+@endpush
