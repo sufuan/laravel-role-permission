@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class EventsControllerFrontent extends Controller
 {
+
+    public function viewAll()
+    {
+        $events = Event::all();
+        return view('Events.index', compact('events'));
+    }
+
+
     public function previousEvents()
     {
         $events = Event::where('start', '<', now())->get();

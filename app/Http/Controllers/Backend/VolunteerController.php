@@ -23,11 +23,20 @@ class VolunteerController extends Controller
 
     public function showVolunteersView()
     {
+        if (is_null($this->user) || !$this->user->can('admin.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
+
         return view('backend.pages.volunteers.index');
     }
 
     public function showPendingVolunteers()
     {
+        if (is_null($this->user) || !$this->user->can('admin.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
+
+
         $volunteers = Post::all();
         return response()->json([
             'total' => $volunteers->count(),
@@ -37,6 +46,13 @@ class VolunteerController extends Controller
 
     public function approveVolunteer($id)
     {
+
+        if (is_null($this->user) || !$this->user->can('admin.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
+
+
+
         $volunteer = Post::findOrFail($id);
 
         // Check if the user already exists
@@ -80,7 +96,12 @@ class VolunteerController extends Controller
 
     public function updateVolunteerStatus(Request $request, $id)
     {
-        \Log::info('Update status called for ID: ' . $id);
+
+        if (is_null($this->user) || !$this->user->can('admin.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
+
+        // \Log::info('Update status called for ID: ' . $id);
 
         $volunteer = Post::findOrFail($id);
 

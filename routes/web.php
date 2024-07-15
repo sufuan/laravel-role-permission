@@ -60,6 +60,8 @@ Route::post('save-form-transaction', [FormsController::class, 'create']);
 
 
 // frontent   event
+
+Route::get('events', [EventsControllerFrontent::class, 'viewAll'])->name('events.viewAll');
 Route::get('events/previous', [EventsControllerFrontent::class, 'previousEvents'])->name('events.previous');
 Route::get('events/upcoming', [EventsControllerFrontent::class, 'upcomingEvents'])->name('events.upcoming');
 
@@ -79,6 +81,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
 
+
+
+
     // Login Routes
     Route::get('/login', 'Backend\Auth\LoginController@showLoginForm')->name('admin.login');
     Route::post('/login/submit', 'Backend\Auth\LoginController@login')->name('admin.login.submit');
@@ -87,8 +92,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/logout/submit', 'Backend\Auth\LoginController@logout')->name('admin.logout.submit');
 
     // Volunteer Management Routes
-    Route::get('/volunteers', 'Backend\VolunteerController@showPendingVolunteers')->name('admin.volunteers');
-    Route::get('/volunteers/view', 'Backend\VolunteerController@showVolunteersView')->name('admin.volunteers.view');
+    Route::get('/pendingvolunteers', 'Backend\VolunteerController@showPendingVolunteers')->name('admin.volunteers');
+    Route::get('/volunteers', 'Backend\VolunteerController@showVolunteersView')->name('admin.pendingvolunteers');
     Route::post('/volunteers/approve/{id}', 'Backend\VolunteerController@approveVolunteer')->name('admin.volunteers.approve');
     Route::patch('/volunteers/status/{id}', 'Backend\VolunteerController@updateVolunteerStatus')->name('admin.volunteers.update_status');
 
@@ -120,6 +125,17 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Remove the specified resource from storage.
     Route::delete('events/{event}', [EventsController::class, 'destroy'])->name('events.destroy');
+
+
+    // Route::group(['prefix' => 'templates'], function () {
+    //     Route::get('/', 'CertificateController@CertificatesTemplatesList');
+    //     Route::get('/new', 'CertificateController@CertificatesNewTemplate');
+    //     Route::post('/store', 'CertificateController@CertificatesTemplateStore');
+    //     Route::post('/preview', 'CertificateController@CertificatesTemplatePreview');
+    //     Route::get('/{template_id}/edit', 'CertificateController@CertificatesTemplatesEdit');
+    //     Route::post('/{template_id}/update', 'CertificateController@CertificatesTemplateStore');
+    //     Route::get('/{template_id}/delete', 'CertificateController@CertificatesTemplatesDelete');
+    // });
 });
 
 require __DIR__ . '/auth.php';

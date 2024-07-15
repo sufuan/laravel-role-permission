@@ -86,21 +86,7 @@
             themeSystem: 'bootstrap5',
             initialView: 'dayGridMonth',
             initialDate: new Date(),
-            views: {
-                listThirtyDay: {
-                    type: 'list',
-                    duration: {
-                        days: 30
-                    },
-                    buttonText: '30 days'
-                },
-                listDay: {
-                    buttonText: 'Day'
-                },
-                listWeek: {
-                    buttonText: 'Week'
-                }
-            },
+
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
