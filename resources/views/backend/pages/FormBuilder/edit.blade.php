@@ -56,7 +56,7 @@ Dashboard Page - Admin Panel
                 "_token": "{{ csrf_token() }}",
             },
             success: function(data) {
-                location.href = "{{ url('form-builder') }}";
+                location.href = "{{ url('admin/form-builder') }}";
             }
         });
     }

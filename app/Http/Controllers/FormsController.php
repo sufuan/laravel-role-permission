@@ -44,6 +44,6 @@ class FormsController extends Controller
         $item->form_id = $formID;
         $item->form = $allData;
         $item->save();
-        return redirect('form-builder')->with('success', 'Form deleted successfully');
+        return redirect('admin/form-builder');
     }
 }

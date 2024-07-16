@@ -8,7 +8,7 @@ Dashboard Page - Admin Panel
 @section('admin-content')
 <div class="card">
     <div class="card-body">
-        <form method="POST" action="{{ URL('save-form-transaction') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ URL('admin/save-form-transaction') }}" enctype="multipart/form-data">
             @csrf
             <input type="number" id="form_id" name="form_id" hidden />
             <div id="fb-reader"></div>
